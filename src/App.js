@@ -8,7 +8,6 @@ const { networkId } = getConfig(process.env.NODE_ENV || "development");
 
 export default function App() {
   const [value, setValue] = React.useState();
-
   const [showNotification, setShowNotification] = React.useState(false);
   const [action, setAction] = React.useState("");
 
@@ -175,7 +174,7 @@ function Notification({ action }) {
       >
         {window.accountId}
       </a>{" "}
-      called method: {action} in contract:{" "}
+      called method: "{action}" in contract:{" "}
       <a
         target="_blank"
         rel="noreferrer"
