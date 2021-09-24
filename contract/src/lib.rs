@@ -18,6 +18,7 @@ impl Default for Counter {
     }
 }
 
+#[near_bindgen]
 impl Counter {
     pub fn get_val(&self) -> u32 {
         self.value
