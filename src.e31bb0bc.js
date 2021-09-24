@@ -46632,7 +46632,7 @@ var _config = _interopRequireDefault(require("./config"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-const nearConfig = (0, _config.default)("development" || 'development'); // Initialize contract & set global variables
+const nearConfig = (0, _config.default)("development" || "development"); // Initialize contract & set global variables
 
 async function initContract() {
   // Initialize connection to the NEAR testnet
@@ -46649,9 +46649,9 @@ async function initContract() {
 
   window.contract = await new _nearApiJs.Contract(window.walletConnection.account(), nearConfig.contractName, {
     // View methods are read only. They don't modify the state, but usually return some value.
-    viewMethods: ['get_greeting'],
+    viewMethods: ["get_val"],
     // Change methods can modify the state. But you don't receive the returned value when called.
-    changeMethods: ['set_greeting']
+    changeMethods: ["increment, decrement, reset"]
   });
 }
 
@@ -46762,7 +46762,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 const {
   networkId
-} = (0, _config.default)("development" || 'development');
+} = (0, _config.default)("development" || "development");
 
 function App() {
   // use React Hooks to store greeting in component state
@@ -46780,10 +46780,8 @@ function App() {
     // in this case, we only care to query the contract when signed in
     if (window.walletConnection.isSignedIn()) {
       // window.contract is set by initContract in index.js
-      window.contract.get_greeting({
-        account_id: window.accountId
-      }).then(greetingFromContract => {
-        set_greeting(greetingFromContract);
+      window.contract.get_val().then(valueFromContract => {
+        console.log(valueFromContract);
       });
     }
   }, // The second argument to useEffect tells React when to re-run the effect
@@ -46795,8 +46793,8 @@ function App() {
   if (!window.walletConnection.isSignedIn()) {
     return /*#__PURE__*/_react.default.createElement("main", null, /*#__PURE__*/_react.default.createElement("h1", null, "Welcome to NEAR!"), /*#__PURE__*/_react.default.createElement("p", null, "To make use of the NEAR blockchain, you need to sign in. The button below will sign you in using NEAR Wallet."), /*#__PURE__*/_react.default.createElement("p", null, "By default, when your app runs in \"development\" mode, it connects to a test network (\"testnet\") wallet. This works just like the main network (\"mainnet\") wallet, but the NEAR Tokens on testnet aren't convertible to other currencies \u2013 they're just for testing!"), /*#__PURE__*/_react.default.createElement("p", null, "Go ahead and click the button below to try it out:"), /*#__PURE__*/_react.default.createElement("p", {
       style: {
-        textAlign: 'center',
-        marginTop: '2.5em'
+        textAlign: "center",
+        marginTop: "2.5em"
       }
     }, /*#__PURE__*/_react.default.createElement("button", {
       onClick: _utils.login
@@ -46809,16 +46807,16 @@ function App() {
     _react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement("button", {
       className: "link",
       style: {
-        float: 'right'
+        float: "right"
       },
       onClick: _utils.logout
     }, "Sign out"), /*#__PURE__*/_react.default.createElement("main", null, /*#__PURE__*/_react.default.createElement("h1", null, /*#__PURE__*/_react.default.createElement("label", {
       htmlFor: "greeting",
       style: {
-        color: 'var(--secondary)',
-        borderBottom: '2px solid var(--secondary)'
+        color: "var(--secondary)",
+        borderBottom: "2px solid var(--secondary)"
       }
-    }, greeting), ' '
+    }, greeting), " "
     /* React trims whitespace around tags; insert literal space character when needed */
     , window.accountId, "!"), /*#__PURE__*/_react.default.createElement("form", {
       onSubmit: async event => {
@@ -46840,7 +46838,7 @@ function App() {
             message: newGreeting
           });
         } catch (e) {
-          alert('Something went wrong! ' + 'Maybe you need to sign out and back in? ' + 'Check your browser console for more info.');
+          alert("Something went wrong! " + "Maybe you need to sign out and back in? " + "Check your browser console for more info.");
           throw e;
         } finally {
           // re-enable the form, whether the call succeeded or failed
@@ -46862,13 +46860,13 @@ function App() {
     }, /*#__PURE__*/_react.default.createElement("label", {
       htmlFor: "greeting",
       style: {
-        display: 'block',
-        color: 'var(--gray)',
-        marginBottom: '0.5em'
+        display: "block",
+        color: "var(--gray)",
+        marginBottom: "0.5em"
       }
     }, "Change greeting"), /*#__PURE__*/_react.default.createElement("div", {
       style: {
-        display: 'flex'
+        display: "flex"
       }
     }, /*#__PURE__*/_react.default.createElement("input", {
       autoComplete: "off",
@@ -46881,17 +46879,17 @@ function App() {
     }), /*#__PURE__*/_react.default.createElement("button", {
       disabled: buttonDisabled,
       style: {
-        borderRadius: '0 5px 5px 0'
+        borderRadius: "0 5px 5px 0"
       }
-    }, "Save")))), /*#__PURE__*/_react.default.createElement("p", null, "Look at that! A Hello World app! This greeting is stored on the NEAR blockchain. Check it out:"), /*#__PURE__*/_react.default.createElement("ol", null, /*#__PURE__*/_react.default.createElement("li", null, "Look in ", /*#__PURE__*/_react.default.createElement("code", null, "src/App.js"), " and ", /*#__PURE__*/_react.default.createElement("code", null, "src/utils.js"), " \u2013 you'll see ", /*#__PURE__*/_react.default.createElement("code", null, "get_greeting"), " and ", /*#__PURE__*/_react.default.createElement("code", null, "set_greeting"), " being called on ", /*#__PURE__*/_react.default.createElement("code", null, "contract"), ". What's this?"), /*#__PURE__*/_react.default.createElement("li", null, "Ultimately, this ", /*#__PURE__*/_react.default.createElement("code", null, "contract"), " code is defined in ", /*#__PURE__*/_react.default.createElement("code", null, "assembly/main.ts"), " \u2013 this is the source code for your ", /*#__PURE__*/_react.default.createElement("a", {
+    }, "Save")))), /*#__PURE__*/_react.default.createElement("p", null, "Look at that! A Hello World app! This greeting is stored on the NEAR blockchain. Check it out:"), /*#__PURE__*/_react.default.createElement("ol", null, /*#__PURE__*/_react.default.createElement("li", null, "Look in ", /*#__PURE__*/_react.default.createElement("code", null, "src/App.js"), " and ", /*#__PURE__*/_react.default.createElement("code", null, "src/utils.js"), " \u2013 you'll see ", /*#__PURE__*/_react.default.createElement("code", null, "get_greeting"), " and ", /*#__PURE__*/_react.default.createElement("code", null, "set_greeting"), " ", "being called on ", /*#__PURE__*/_react.default.createElement("code", null, "contract"), ". What's this?"), /*#__PURE__*/_react.default.createElement("li", null, "Ultimately, this ", /*#__PURE__*/_react.default.createElement("code", null, "contract"), " code is defined in", " ", /*#__PURE__*/_react.default.createElement("code", null, "assembly/main.ts"), " \u2013 this is the source code for your", " ", /*#__PURE__*/_react.default.createElement("a", {
       target: "_blank",
       rel: "noreferrer",
       href: "https://docs.near.org/docs/develop/contracts/overview"
-    }, "smart contract"), "."), /*#__PURE__*/_react.default.createElement("li", null, "When you run ", /*#__PURE__*/_react.default.createElement("code", null, "yarn dev"), ", the code in ", /*#__PURE__*/_react.default.createElement("code", null, "assembly/main.ts"), " gets deployed to the NEAR testnet. You can see how this happens by looking in ", /*#__PURE__*/_react.default.createElement("code", null, "package.json"), " at the ", /*#__PURE__*/_react.default.createElement("code", null, "scripts"), " section to find the ", /*#__PURE__*/_react.default.createElement("code", null, "dev"), " command.")), /*#__PURE__*/_react.default.createElement("hr", null), /*#__PURE__*/_react.default.createElement("p", null, "To keep learning, check out ", /*#__PURE__*/_react.default.createElement("a", {
+    }, "smart contract"), "."), /*#__PURE__*/_react.default.createElement("li", null, "When you run ", /*#__PURE__*/_react.default.createElement("code", null, "yarn dev"), ", the code in", " ", /*#__PURE__*/_react.default.createElement("code", null, "assembly/main.ts"), " gets deployed to the NEAR testnet. You can see how this happens by looking in ", /*#__PURE__*/_react.default.createElement("code", null, "package.json"), " at the ", /*#__PURE__*/_react.default.createElement("code", null, "scripts"), " section to find the ", /*#__PURE__*/_react.default.createElement("code", null, "dev"), " ", "command.")), /*#__PURE__*/_react.default.createElement("hr", null), /*#__PURE__*/_react.default.createElement("p", null, "To keep learning, check out", " ", /*#__PURE__*/_react.default.createElement("a", {
       target: "_blank",
       rel: "noreferrer",
       href: "https://docs.near.org"
-    }, "the NEAR docs"), " or look through some ", /*#__PURE__*/_react.default.createElement("a", {
+    }, "the NEAR docs"), " ", "or look through some", " ", /*#__PURE__*/_react.default.createElement("a", {
       target: "_blank",
       rel: "noreferrer",
       href: "https://examples.near.org"
@@ -46906,9 +46904,9 @@ function Notification() {
     target: "_blank",
     rel: "noreferrer",
     href: `${urlPrefix}/${window.accountId}`
-  }, window.accountId), ' '
+  }, window.accountId), " "
   /* React trims whitespace around tags; insert literal space character when needed */
-  , "called method: 'set_greeting' in contract:", ' ', /*#__PURE__*/_react.default.createElement("a", {
+  , "called method: 'set_greeting' in contract:", " ", /*#__PURE__*/_react.default.createElement("a", {
     target: "_blank",
     rel: "noreferrer",
     href: `${urlPrefix}/${window.contract.contractId}`
@@ -46958,7 +46956,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51213" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51761" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
