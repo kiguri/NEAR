@@ -26,10 +26,9 @@ export async function initContract() {
     nearConfig.contractName,
     {
       // View methods are read only. They don't modify the state, but usually return some value.
-      viewMethods: ["get_val"],
+      viewMethods: ["get_transaction"],
       // Change methods can modify the state. But you don't receive the returned value when called.
-      changeMethods: ["increment", "decrement", "reset"],
-      sender: window.walletConnection.getAccountId(),
+      changeMethods: ["add_transaction", "transfer_cash"],
     }
   );
 }
